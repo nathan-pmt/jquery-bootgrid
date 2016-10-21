@@ -376,7 +376,8 @@ function renderColumnSelection(actions)
             if (column.visibleInSelection)
             {
                 var item = $(tpl.actionDropDownCheckboxItem.resolve(getParams.call(that,
-                    { name: column.id, label: column.text, checked: column.visible })))
+                    { name: column.id, label: column.text, checked: (column.visible ? 'checked="checked"' : '') })))
+
                         .on("click" + namespace, selector, function (e)
                         {
                             e.stopPropagation();
@@ -591,8 +592,8 @@ function renderRows(rows)
             {
                 var selected = ($.inArray(row[that.identifier], that.selectedRows) !== -1),
                     selectBox = tpl.select.resolve(getParams.call(that,
-                        { type: "checkbox", value: row[that.identifier], checked: selected }));
-                cells += tpl.cell.resolve(getParams.call(that, { content: selectBox, css: css.selectCell }));
+                        { type: "checkbox", value: row[that.identifier], checked: (selected ? 'checked="checked"' : '') }));
+                cells += tpl.cell.resolve(getParams.call(that, { content: selectBox, css: css.selectCell, style: "" }));
                 allRowsSelected = (allRowsSelected && selected);
                 if (selected)
                 {
@@ -763,7 +764,8 @@ function renderTableHeader()
         var selectBox = (this.options.multiSelect) ?
             tpl.select.resolve(getParams.call(that, { type: "checkbox", value: "all" })) : "";
         html += tpl.rawHeaderCell.resolve(getParams.call(that, { content: selectBox,
-            css: css.selectCell }));
+            css: css.selectCell, style: "" }));
+
     }
 
     $.each(this.columns, function (index, column)
