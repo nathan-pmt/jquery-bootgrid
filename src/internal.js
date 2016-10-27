@@ -304,17 +304,27 @@ function prepareTable()
         this.element.append(tpl.body);
     }
 
-    if (this.options.navigation & 1)
-    {
-        this.header = $(tpl.header.resolve(getParams.call(this, { id: this.element._bgId() + "-header" })));
-        wrapper.before(this.header);
-    }
+	if (this.options.navigation & 1)
+	{
+		wrapper.before($("<div id='" + this.element._bgId() + "-header'></div>"));
+	}
 
-    if (this.options.navigation & 2)
-    {
-        this.footer = $(tpl.footer.resolve(getParams.call(this, { id: this.element._bgId() + "-footer" })));
-        wrapper.after(this.footer);
-    }
+	if (this.options.navigation & 2)
+	{
+		 wrapper.after($("<div id='" + this.element._bgId() + "-footer'></div>"));
+	}
+	
+	if($('#' +  this.element._bgId() + '-header'))
+	{
+		this.header = $(tpl.header.resolve(getParams.call(this, { id: this.element._bgId() + "-header" })));
+		$('#' +  this.element._bgId() + '-header').html(this.header);
+	}
+	
+	if($('#' +  this.element._bgId() + '-footer'))
+	{
+		this.footer = $(tpl.footer.resolve(getParams.call(this, { id: this.element._bgId() + "-footer" })));
+		$('#' +  this.element._bgId() + '-footer').html(this.footer);
+	}
 }
 
 function renderActions()
